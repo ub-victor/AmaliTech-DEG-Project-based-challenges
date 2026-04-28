@@ -19,7 +19,7 @@ Built with React, Vite, Tailwind CSS, and custom SVG rendering.
 3. `npm run dev`
 
 ## Design System
-For the Link the Figma I have attached a pdf having everything
+For the Link the Figma I have attached a pdf having everything called `SupportFlow_Design_Spec.pdf`
 
 ## Project Structure
 - **`src/FlowContext.jsx`** – Global state management
