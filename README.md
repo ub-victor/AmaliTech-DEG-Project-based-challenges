@@ -1,16 +1,37 @@
-# React + Vite
+# SupportFlow – Visual Decision Tree Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser‑based tool for building and testing chatbot conversation flows.  
+Built with React, Vite, Tailwind CSS, and custom SVG rendering.
 
-Currently, two official plugins are available:
+## Live Demo
+[Your deployment link]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- **Interactive Canvas** – Drag, reposition, and connect nodes using absolute positioning.
+- **Real‑time Editing** – Click any node to edit its question text in the inspector.
+- **Auto‑Layout** – One‑click tidying of the flowchart into logical columns.
+- **Preview Mode** – Simulate the chatbot conversation exactly as a user would see it.
+- **Custom SVG Connections** – Curved, directed lines with arrowheads, drawn without external libraries.
 
-## React Compiler
+## How to Run Locally
+1. Clone the repository
+2. `npm install`
+3. `npm run dev`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Design System
+For the Link the Figma I have attached a pdf having everything
 
-## Expanding the ESLint configuration
+## Project Structure
+- **`src/FlowContext.jsx`** – Global state management
+- **`src/components/Canvas.jsx`** – Main drawing area
+- **`src/components/NodeCard.jsx`** – Draggable node card
+- **`src/components/ConnectionsLayer.jsx`** – SVG connection lines
+- **`src/components/InspectorPanel.jsx`** – Node property editor
+- **`src/components/PreviewMode.jsx`** – Chat simulation
+- **`src/components/Toolbar.jsx`** – Mode toggle & Auto‑Layout
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Wildcard Feature: Auto‑Layout
+Implemented a breadth‑first algorithm that assigns each node a depth and order, then positions them with consistent horizontal and vertical gaps. This transforms a messy diagram into a readable tree in one click.
+
+## License
+MIT
