@@ -1,87 +1,126 @@
 // src/components/PreviewMode.jsx
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useFlow } from '../FlowContext';
 
 export default function PreviewMode() {
   const { startNode, nodeMap } = useFlow();
+  const [messages, setMessages] = useState([]);
   const [currentNodeId, setCurrentNodeId] = useState(startNode?.id);
-  const [history, setHistory] = useState([]); // For possible "back" feature? Not required.
+  const [conversationEnded, setConversationEnded] = useState(false);
+  const messagesEndRef = useRef(null);
 
   const currentNode = nodeMap.get(currentNodeId);
-  if (!currentNode) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <p className="text-gray-500">No start node defined.</p>
-      </div>
-    );
-  }
 
-  const isEnd = currentNode.type === 'end' || currentNode.options?.length === 0;
+  // Scroll to bottom when new messages appear
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
-  const handleOptionClick = (nextId) => {
-    if (nextId) {
-      setCurrentNodeId(nextId);
+  const handleOptionClick = (option) => {
+    // Add user's choice as a message
+    const userMessage = {
+      type: 'user',
+      text: option.label,
+      id: Date.now(),
+    };
+    setMessages(prev => [...prev, userMessage]);
+
+    if (option.nextId) {
+      // Move to next node and add its question
+      const nextNode = nodeMap.get(option.nextId);
+      if (nextNode) {
+        setCurrentNodeId(option.nextId);
+        const botMessage = {
+          type: 'bot',
+          text: nextNode.text,
+          id: Date.now() + 0.5,
+        };
+        // If it's an end node, we'll show it and then mark ended after a short delay
+        if (nextNode.type === 'end' || nextNode.options?.length === 0) {
+          setMessages(prev => [...prev, botMessage]);
+          setConversationEnded(true);
+        } else {
+          setMessages(prev => [...prev, botMessage]);
+        }
+      } else {
+        setConversationEnded(true);
+      }
     } else {
-      setCurrentNodeId(null); // will show the end screen
+      // nextId is null -> end immediately
+      setConversationEnded(true);
     }
   };
 
   const handleRestart = () => {
+    setMessages([]);
+    setConversationEnded(false);
     setCurrentNodeId(startNode.id);
+    // Add the first bot question
+    setMessages([{ type: 'bot', text: startNode.text, id: Date.now() }]);
   };
 
-  // End screen when nextId is null or no more nodes
-  if (isEnd || !currentNodeId) {
-    return (
-      <div className="h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600 mb-4">
-            ✓
-          </div>
-          <h2 className="text-lg font-bold mb-2">Conversation Ended</h2>
-          <p className="text-gray-500 text-sm mb-6">
-            {currentNode?.text || "Thanks! An agent will reach out."}
-          </p>
-          <button
-            onClick={handleRestart}
-            className="w-full py-2 px-4 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Restart Conversation
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Initial message
+  useEffect(() => {
+    if (startNode && messages.length === 0 && !conversationEnded) {
+      setMessages([{ type: 'bot', text: startNode.text, id: Date.now() }]);
+    }
+  }, [startNode, messages.length, conversationEnded]);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div className="h-full flex flex-col bg-gray-50">
       {/* Chat messages area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {/* Bot message (question) */}
-        <div className="flex justify-start">
-          <div className="max-w-xs bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-            <p className="text-sm text-gray-800">{currentNode.text}</p>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map(msg => (
+          <div
+            key={msg.id}
+            className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-xs rounded-lg p-3 text-sm ${
+                msg.type === 'user'
+                  ? 'bg-blue-600 text-white rounded-br-sm'
+                  : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
+              }`}
+              style={{ borderRadius: '10px' }}
+            >
+              {msg.text}
+            </div>
           </div>
-        </div>
-
-        {/* User message placeholders (if we want to show previous choices) */}
-        {/* We could track history, but for simplicity we'll skip that */}
+        ))}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* Options area */}
+      {/* Options / End screen */}
       <div className="border-t border-gray-200 bg-white p-4">
-        <p className="text-xs text-gray-400 mb-2">Choose an option:</p>
-        <div className="flex flex-wrap gap-2">
-          {currentNode.options?.map((opt, idx) => (
+        {conversationEnded ? (
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-100 text-green-600 mb-2">
+              ✓
+            </div>
+            <p className="text-xs text-gray-500 mb-3">Conversation finished</p>
             <button
-              key={idx}
-              onClick={() => handleOptionClick(opt.nextId)}
+              onClick={handleRestart}
               className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-colors"
             >
-              {opt.label}
+              Restart
             </button>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <>
+            <p className="text-xs text-gray-400 mb-2">Choose an option:</p>
+            <div className="flex flex-wrap gap-2">
+              {currentNode?.options?.map((opt, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleOptionClick(opt)}
+                  className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
