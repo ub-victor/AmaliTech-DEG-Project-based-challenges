@@ -1,16 +1,22 @@
+// src/components/Canvas.jsx
 import { useFlow } from '../FlowContext';
 import NodeCard from './NodeCard';
 import ConnectionsLayer from './ConnectionsLayer';
 
 export default function Canvas() {
-  const { nodes, setSelectedNodeId, selectedNodeId } = useFlow();
+  const { nodes, selectedNodeId, setSelectedNodeId } = useFlow();
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-gray-50">
-      {/* SVG layer for connections – we’ll fill this next */}
+    <div
+      className="relative w-full h-screen overflow-hidden bg-gray-50"
+      onMouseDown={(e) => {
+        // If clicked directly on the canvas background, deselect
+        if (e.target === e.currentTarget) {
+          setSelectedNodeId(null);
+        }
+      }}
+    >
       <ConnectionsLayer />
-
-      {/* Nodes layer */}
       {nodes.map(node => (
         <NodeCard
           key={node.id}
