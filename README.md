@@ -36,7 +36,7 @@ Implemented a breadth‑first algorithm that assigns each node a depth and order
 ## Credits
 
 - Challenge Task by [AmaliTech](https://amalitech.com/)
-- Developed by [Ushindi Bihame](https://www.linkedin.com/in/ushindi-bihame-7a4a3a1b4/)
+- Developed by [Ushindi Bihame](https://www.linkedin.com/in/victoire-ushindi-46a06a285/)
 - GitHub: [ub-victor](https://github.com/ub-victor)
 
 ## License
