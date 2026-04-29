@@ -33,5 +33,12 @@ For the Link the Figma I have attached a pdf at the root having everything the f
 ## Wildcard Feature: Auto‑Layout
 Implemented a breadth‑first algorithm that assigns each node a depth and order, then positions them with consistent horizontal and vertical gaps. This transforms a messy diagram into a readable tree in one click.
 
+## Credits
+
+- Challenge Task by [AmaliTech](https://www.codealpha.tech/)
+- Developed by [Ushindi Bihame](https://www.linkedin.com/in/ushindi-bihame-7a4a3a1b4/)
+- GitHub: [ub-victor](https://github.com/ub-victor)
+
 ## License
-MIT
+
+This project is open-source and available under the MIT License.
