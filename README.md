@@ -2,6 +2,7 @@
 
 A browser‑based tool for building and testing chatbot conversation flows.  
 Built with React, Vite, Tailwind CSS, and custom SVG rendering.
+![SupportFlow](image.png)
 
 ## Live Demo
 https://amali-tech-supportflow-builder-project-challe-ub-victor.vercel.app/
