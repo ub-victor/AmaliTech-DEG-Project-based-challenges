@@ -30,6 +30,16 @@ For the Link the Figma I have attached a pdf at the root having everything the f
 - **`src/components/PreviewMode.jsx`** – Chat simulation
 - **`src/components/Toolbar.jsx`** – Mode toggle & Auto‑Layout
 
+## Data Model
+
+The flow is driven by a single `flow_data.json` file.  
+Each node has an `id`, `type` (`start` / `question` / `end`), `text`, and `options`.  
+Options link to other nodes via `nextId` (or `null` to end the conversation).
+
+## Key Custom Hooks
+
+- **`useConnectionLines.js`** – Computes SVG paths from option ports to target node input ports using DOM measurement.
+
 ## Wildcard Feature: Auto‑Layout
 Implemented a breadth‑first algorithm that assigns each node a depth and order, then positions them with consistent horizontal and vertical gaps. This transforms a messy diagram into a readable tree in one click.
 
