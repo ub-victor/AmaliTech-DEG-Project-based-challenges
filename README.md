@@ -4,7 +4,7 @@ A browser‑based tool for building and testing chatbot conversation flows.
 Built with React, Vite, Tailwind CSS, and custom SVG rendering.
 
 ## Live Demo
-[Your deployment link]
+https://amali-tech-supportflow-builder-project-challe-ub-victor.vercel.app/
 
 ## Features
 - **Interactive Canvas** – Drag, reposition, and connect nodes using absolute positioning.
@@ -19,7 +19,7 @@ Built with React, Vite, Tailwind CSS, and custom SVG rendering.
 3. `npm run dev`
 
 ## Design System
-For the Link the Figma I have attached a pdf having everything called `SupportFlow_Design_Spec.pdf`
+For the Link the Figma I have attached a pdf at the root having everything the file called `SupportFlow_Design_Spec.pdf`
 
 ## Project Structure
 - **`src/FlowContext.jsx`** – Global state management
