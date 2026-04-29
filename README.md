@@ -6,7 +6,7 @@ This project is a web-based tool that lets users create, edit, and test chatbot 
 The problem it solves: Building chatbot flows usually requires coding or complex tools. This makes it easy with drag-and-drop, so anyone can design conversations without programming skills.
 
 ## What Makes It Unique
-- **No coding needed**: Drag nodes, type text, connect them – that's it.
+- **No coding needed**: Drag nodes, type text, connect them, that's it.
 - **Real-time preview**: See exactly how the chat will look to users.
 - **Auto-layout**: One click to organize the messy diagram into a neat tree.
 - **Custom connections**: Curved lines with arrows, drawn without extra libraries.
@@ -60,6 +60,7 @@ These are reusable pieces of the UI.
 - **Preview**: `PreviewMode` uses `nodeMap` from context to navigate the flow based on user clicks.
 
 ## How to Run the Project
+0. Clone the project
 1. Install Node.js if you don't have it.
 2. Open terminal in the project folder.
 3. Run `npm install` to install dependencies.
