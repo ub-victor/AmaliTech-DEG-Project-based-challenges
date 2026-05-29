@@ -67,6 +67,8 @@ export default function NodeCard({ node, isSelected, onClick }) {
         left: node.position.x,
         top: node.position.y,
         width: 200,
+        maxWidth: 'min(90vw,220px)',
+        touchAction: 'none',
         cursor: dragging ? 'grabbing' : 'pointer',
         zIndex: dragging ? 1000 : 10,
       }}

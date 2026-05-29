@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    min-width: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: #f8fafc;
+  }
+}

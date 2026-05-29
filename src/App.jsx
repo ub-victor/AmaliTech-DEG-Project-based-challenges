@@ -9,12 +9,12 @@ export default function App() {
   const { viewMode } = useFlow();
 
   return (
-    <div className="h-screen w-screen flex flex-col">
+    <div className="min-h-screen w-screen flex flex-col bg-slate-50">
       <Toolbar />
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {viewMode === 'editor' ? (
           <>
-            <div className="flex-1 relative">
+            <div className="flex-1 relative overflow-hidden">
               <Canvas />
             </div>
             <InspectorPanel />

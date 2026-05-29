@@ -8,7 +8,7 @@ export default function Canvas() {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden bg-gray-50"
+      className="relative w-full h-full min-h-[calc(100vh-3rem)] overflow-auto bg-gray-50"
       onMouseDown={(e) => {
         // If clicked directly on the canvas background, deselect
         if (e.target === e.currentTarget) {

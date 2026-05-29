@@ -67,7 +67,7 @@ export default function PreviewMode() {
   }, [startNode, messages.length, conversationEnded]);
 
   return (
-    <div className="h-full flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Chat messages area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map(msg => (
@@ -76,7 +76,7 @@ export default function PreviewMode() {
             className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-xs rounded-lg p-3 text-sm ${
+              className={`max-w-full sm:max-w-xs rounded-lg p-3 text-sm ${
                 msg.type === 'user'
                   ? 'bg-blue-600 text-white rounded-br-sm'
                   : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
@@ -100,7 +100,7 @@ export default function PreviewMode() {
             <p className="text-xs text-gray-500 mb-3">Conversation finished</p>
             <button
               onClick={handleRestart}
-              className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-colors"
+              className="w-full sm:inline-flex sm:w-auto px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-colors"
             >
               Restart
             </button>
@@ -108,12 +108,12 @@ export default function PreviewMode() {
         ) : (
           <>
             <p className="text-xs text-gray-400 mb-2">Choose an option:</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid gap-2 sm:grid-cols-2">
               {currentNode?.options?.map((opt, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleOptionClick(opt)}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-colors"
+                  className="w-full px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-colors"
                 >
                   {opt.label}
                 </button>

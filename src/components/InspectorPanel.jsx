@@ -10,7 +10,8 @@ export default function InspectorPanel() {
   if (!selectedNode) return null;
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 p-4 flex flex-col h-screen shadow-lg">
+    <div className="lg:w-80 w-full max-w-full fixed inset-x-0 bottom-0 z-50 max-h-[70vh] bg-white border-t border-gray-200 p-4 flex flex-col shadow-2xl overflow-hidden lg:static lg:max-h-full lg:border-l lg:border-t-0 lg:h-screen lg:shadow-none">
+      <div className="mx-auto w-10 h-1.5 rounded-full bg-gray-300 mb-3 lg:hidden" />
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-sm font-bold">Edit Node</h2>
         <button
@@ -23,9 +24,9 @@ export default function InspectorPanel() {
 
       <div className="text-xs text-gray-500 mb-2">ID: {selectedNode.id}</div>
 
-      <label className="text-xs font-semibold mb-1 block">Question Text</label>
+      <label className="text-xs sm:text-sm font-semibold mb-1 block">Question Text</label>
       <textarea
-        className="w-full border border-gray-300 rounded-md p-2 text-xs resize-none focus:outline-none focus:border-blue-500"
+        className="w-full border border-gray-300 rounded-md p-2 text-sm resize-none min-h-[120px] focus:outline-none focus:border-blue-500"
         rows={4}
         value={selectedNode.text}
         onChange={(e) => updateNode(selectedNode.id, { text: e.target.value })}
