@@ -13,6 +13,13 @@ The problem it solves: Building chatbot flows usually requires coding or complex
 - **Grid snapping**: Nodes snap to a grid for neat alignment, but you can hold ALT for free movement.
 - **Built with modern web tech**: Uses React for fast updates, Vite for quick development, and Tailwind CSS for styling.
 
+## ✨ Recent Enhancements
+- **Canvas Zoom & Pan**: Scroll with Ctrl/Cmd to zoom, drag the canvas to pan. On touch devices, pinch to zoom.
+- **Add & Delete Nodes**: Use the "+ Node" button to create new nodes, and delete them from the inspector panel.
+- **Mobile Inspector Toggle**: Show/hide the inspector panel on mobile with a dedicated toggle button for better space management.
+- **State Persistence**: Your flow is automatically saved to browser localStorage, so your work persists across sessions.
+- **Polished Preview Mode**: Enhanced chatbot preview with smooth interactions, proper state management, and a restart button to replay conversations.
+
 ## Technologies Used
 - **React**: For building the user interface components.
 - **Vite**: For fast development and building the app.
@@ -33,14 +40,14 @@ The problem it solves: Building chatbot flows usually requires coding or complex
 ### Source Code (`src/` folder)
 - **`main.jsx`**: The entry point. It wraps the app with `FlowProvider` (for shared data) and renders `App` into the HTML.
 - **`App.jsx`**: The main app component. It shows the toolbar, canvas (for editing), inspector panel, or preview mode based on what you're doing.
-- **`FlowContext.jsx`**: Manages all the shared data (nodes, selected node, view mode). It provides functions like `updateNode` and `autoLayout`. The `autoLayout` uses a breadth-first search (BFS) algorithm to position nodes neatly in columns.
+- **`FlowContext.jsx`**: Manages all the shared data (nodes, selected node, view mode, zoom/pan, inspector state). Provides functions like `updateNode`, `addNode`, `deleteNode`, `autoLayout`, zoom/pan controls, and localStorage persistence. The `autoLayout` uses a breadth-first search (BFS) algorithm to position nodes neatly in columns.
 - **`index.css`**: Just imports Tailwind CSS for styling.
 
 ### Components (`src/components/` folder)
 These are reusable pieces of the UI.
 
-- **`Toolbar.jsx`**: The top bar with buttons to switch between "Editor" (for designing) and "Preview" (for testing). Also has "Auto-Layout" button in editor mode.
-- **`Canvas.jsx`**: The main drawing area. It shows the connection lines and all node cards. Clicking the background deselects nodes.
+- **`Toolbar.jsx`**: The top bar with buttons to switch between "Editor" (for designing) and "Preview" (for testing). In editor mode, includes "+ Node" (add nodes), "Show/Hide Inspector" (mobile toggle), zoom controls (-, %, +), "Fit" (reset view), and "Auto-Layout" buttons.
+- **`Canvas.jsx`**: The main drawing area. It shows the connection lines and all node cards. Supports zoom (Ctrl/Cmd + scroll or pinch on touch), pan (drag), and clicking the background deselects nodes.
 - **`NodeCard.jsx`**: Each question/answer box. You can drag it (snaps to grid unless ALT pressed), click to select and edit.
 - **`ConnectionsLayer.jsx`**: Draws the curved SVG lines between nodes with arrowheads.
 - **`InspectorPanel.jsx`**: The right panel that appears when you select a node. Lets you edit the text and see options.
