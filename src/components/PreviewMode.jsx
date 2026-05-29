@@ -4,7 +4,9 @@ import { useFlow } from '../FlowContext';
 
 export default function PreviewMode() {
   const { startNode, nodeMap } = useFlow();
-  const [messages, setMessages] = useState([]);
+  const messageIdRef = useRef(2);
+  const initialMessages = startNode ? [{ type: 'bot', text: startNode.text, id: 1 }] : [];
+  const [messages, setMessages] = useState(initialMessages);
   const [currentNodeId, setCurrentNodeId] = useState(startNode?.id);
   const [conversationEnded, setConversationEnded] = useState(false);
   const messagesEndRef = useRef(null);
@@ -21,7 +23,7 @@ export default function PreviewMode() {
     const userMessage = {
       type: 'user',
       text: option.label,
-      id: Date.now(),
+      id: messageIdRef.current++,
     };
     setMessages(prev => [...prev, userMessage]);
 
@@ -33,7 +35,7 @@ export default function PreviewMode() {
         const botMessage = {
           type: 'bot',
           text: nextNode.text,
-          id: Date.now() + 0.5,
+          id: messageIdRef.current++,
         };
         // If it's an end node, we'll show it and then mark ended after a short delay
         if (nextNode.type === 'end' || nextNode.options?.length === 0) {
@@ -52,19 +54,11 @@ export default function PreviewMode() {
   };
 
   const handleRestart = () => {
-    setMessages([]);
+    messageIdRef.current = 1;
+    setMessages([{ type: 'bot', text: startNode.text, id: messageIdRef.current++ }]);
     setConversationEnded(false);
     setCurrentNodeId(startNode.id);
-    // Add the first bot question
-    setMessages([{ type: 'bot', text: startNode.text, id: Date.now() }]);
   };
-
-  // Initial message
-  useEffect(() => {
-    if (startNode && messages.length === 0 && !conversationEnded) {
-      setMessages([{ type: 'bot', text: startNode.text, id: Date.now() }]);
-    }
-  }, [startNode, messages.length, conversationEnded]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
