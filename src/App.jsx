@@ -6,7 +6,7 @@ import InspectorPanel from './components/InspectorPanel';
 import PreviewMode from './components/PreviewMode';
 
 export default function App() {
-  const { viewMode } = useFlow();
+  const { viewMode, isInspectorOpen } = useFlow();
 
   return (
     <div className="min-h-screen w-screen flex flex-col bg-slate-50">
@@ -17,7 +17,7 @@ export default function App() {
             <div className="flex-1 relative overflow-hidden">
               <Canvas />
             </div>
-            <InspectorPanel />
+            {isInspectorOpen && <InspectorPanel />}
           </>
         ) : (
           <div className="flex-1">

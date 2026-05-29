@@ -2,13 +2,14 @@ import { useRef } from 'react';
 import { useFlow } from '../FlowContext';
 import { useConnectionLines } from '../hooks/useConnectionLines';
 
-export default function ConnectionsLayer() {
+export default function ConnectionsLayer({ canvasZoom, canvasPan, canvasRef }) {
   const { nodes, nodeMap } = useFlow();
-  const canvasRef = useRef(null);
-  const paths = useConnectionLines(nodes, nodeMap, canvasRef);
+  const internalRef = useRef(null);
+  const svgRef = canvasRef || internalRef;
+  const paths = useConnectionLines(nodes, nodeMap, svgRef, canvasZoom, canvasPan);
 
   return (
-    <svg ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0">
+    <svg ref={svgRef} className="absolute inset-0 w-full h-full pointer-events-none z-0">
       <defs>
         <marker
           id="arrowhead"

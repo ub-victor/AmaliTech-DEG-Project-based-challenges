@@ -98,7 +98,7 @@ export default function Canvas() {
       onClick={handleCanvasClick}
       style={{ touchAction: 'none' }}
     >
-      <ConnectionsLayer canvasRef={canvasRef} />
+      <ConnectionsLayer canvasRef={canvasRef} canvasZoom={canvasZoom} canvasPan={canvasPan} />
       <div
         className="absolute inset-0 origin-top-left"
         style={{

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 
-export function useConnectionLines(nodes, nodeMap, canvasRef) {
+export function useConnectionLines(nodes, nodeMap, canvasRef, canvasZoom, canvasPan) {
   const [paths, setPaths] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export function useConnectionLines(nodes, nodeMap, canvasRef) {
       setPaths(newPaths);
     });
     return () => cancelAnimationFrame(raf);
-  }, [nodes, nodeMap, canvasRef]);
+  }, [nodes, nodeMap, canvasRef, canvasZoom, canvasPan]);
 
   return paths;
 }
