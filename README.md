@@ -13,7 +13,7 @@ The problem it solves: Building chatbot flows usually requires coding or complex
 - **Grid snapping**: Nodes snap to a grid for neat alignment, but you can hold ALT for free movement.
 - **Built with modern web tech**: Uses React for fast updates, Vite for quick development, and Tailwind CSS for styling.
 
-## ✨ Recent Enhancements
+## Recent Enhancements
 - **Canvas Zoom & Pan**: Scroll with Ctrl/Cmd to zoom, drag the canvas to pan. On touch devices, pinch to zoom.
 - **Add & Delete Nodes**: Use the "+ Node" button to create new nodes, and delete them from the inspector panel.
 - **Mobile Inspector Toggle**: Show/hide the inspector panel on mobile with a dedicated toggle button for better space management.
