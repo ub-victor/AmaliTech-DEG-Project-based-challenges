@@ -84,10 +84,17 @@ export default function Canvas() {
     }
   };
 
+  const minX = Math.min(0, ...nodes.map(node => node.position?.x ?? 0));
+  const minY = Math.min(0, ...nodes.map(node => node.position?.y ?? 0));
+  const maxX = Math.max(...nodes.map(node => (node.position?.x ?? 0) + 260));
+  const maxY = Math.max(...nodes.map(node => (node.position?.y ?? 0) + 220));
+  const contentWidth = Math.max(1200, maxX - minX + 300);
+  const contentHeight = Math.max(800, maxY - minY + 300);
+
   return (
     <div
       ref={canvasRef}
-      className="relative w-full h-full min-h-[calc(100vh-3rem)] overflow-hidden bg-gray-50"
+      className="relative w-full h-full min-h-[calc(100vh-3rem)] overflow-visible bg-gray-50"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -96,23 +103,28 @@ export default function Canvas() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onClick={handleCanvasClick}
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: 'pan-x pan-y' }}
     >
-      <ConnectionsLayer canvasRef={canvasRef} canvasZoom={canvasZoom} canvasPan={canvasPan} />
-      <div
-        className="absolute inset-0 origin-top-left"
-        style={{
-          transform: `translate(${canvasPan.x}px, ${canvasPan.y}px) scale(${canvasZoom})`,
-        }}
-      >
-        {nodes.map((node) => (
-          <NodeCard
-            key={node.id}
-            node={node}
-            isSelected={node.id === selectedNodeId}
-            onClick={() => selectNode(node.id)}
-          />
-        ))}
+      <div className="absolute inset-0 w-full h-full">
+        <ConnectionsLayer canvasRef={canvasRef} canvasZoom={canvasZoom} canvasPan={canvasPan} />
+      </div>
+
+      <div style={{ width: contentWidth, height: contentHeight, position: 'relative' }}>
+        <div
+          className="absolute inset-0 origin-top-left"
+          style={{
+            transform: `translate(${canvasPan.x}px, ${canvasPan.y}px) scale(${canvasZoom})`,
+          }}
+        >
+          {nodes.map((node) => (
+            <NodeCard
+              key={node.id}
+              node={node}
+              isSelected={node.id === selectedNodeId}
+              onClick={() => selectNode(node.id)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

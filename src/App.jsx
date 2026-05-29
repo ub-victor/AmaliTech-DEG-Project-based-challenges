@@ -14,7 +14,7 @@ export default function App() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {viewMode === 'editor' ? (
           <>
-            <div className="flex-1 relative overflow-hidden">
+            <div className="flex-1 relative overflow-auto">
               <Canvas />
             </div>
             {isInspectorOpen && <InspectorPanel />}
