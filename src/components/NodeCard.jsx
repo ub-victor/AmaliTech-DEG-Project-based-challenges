@@ -1,5 +1,5 @@
 // src/components/NodeCard.jsx
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef } from 'react';
 import { useFlow } from '../FlowContext';
 
 export default function NodeCard({ node, isSelected, onClick }) {
